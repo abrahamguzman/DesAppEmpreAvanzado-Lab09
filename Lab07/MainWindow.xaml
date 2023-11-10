@@ -1,0 +1,35 @@
+﻿<Window x:Class="Lab07.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab07"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <DatePicker x:Name="datepicker"  Grid.Row="0" Margin="34,7,552,190"/>
+        <Button Content="Buscar"  Grid.Row="0" HorizontalAlignment="Left" Margin="271,7,0,0" VerticalAlignment="Top" Click="ListInvoiceByDate" Width="90"/>
+        <Button Content="Listar" Grid.Row="0" HorizontalAlignment="Left" Margin="380,7,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.232,0.39" Click="Listar" Width="90"/>
+
+        <DataGrid x:Name="dataGrid" AutoGenerateColumns="False" Margin="5,46,10,0" Grid.RowSpan="2" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Invoice ID" Binding="{Binding invoice_id}" />
+                <DataGridTextColumn Header="Customer ID" Binding="{Binding customer_id}" />
+                <DataGridTextColumn Header="Date" Binding="{Binding date}" />
+                <DataGridTextColumn Header="Total" Binding="{Binding total}" />
+                <DataGridTextColumn Header="Active" Binding="{Binding active}" />
+                <DataGridTemplateColumn Header="Acción">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Eliminar" Click="DeleteInvoice" CommandParameter="{Binding invoice_id}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
