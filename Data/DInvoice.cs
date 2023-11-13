@@ -11,7 +11,7 @@ namespace Data
 {
     public class DInvoice
     {
-        private readonly string connectionString = "Data Source=LAB1504-22\\SQLEXPRESS;Initial Catalog=db;User ID=user;Password=123456";
+        private readonly string connectionString = "Data Source=MGUZMAN-ACER\\SQLEXPRESS;Initial Catalog=db;User ID=user;Password=123456";
 
         public List<Invoice> Get()
         {
@@ -44,22 +44,24 @@ namespace Data
             }
             return invoices;
         }
-        public void DeleteInvoice(int id)
+        public bool DeleteInvoice(int invoiceId)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
-                using (SqlCommand command = new SqlCommand("eliminar_invoice", connection))
+                using (SqlCommand command = new SqlCommand("eliminar_invoices", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
-                    command.Parameters.Add(new SqlParameter("@invoice_id", SqlDbType.Int));
-                    command.Parameters["@invoice_id"].Value = id;
+                    command.Parameters.AddWithValue("@invoice_id", invoiceId);
 
-                    command.ExecuteNonQuery();
+                    int rowsAffected = command.ExecuteNonQuery();
                 }
+                
             }
+            return true;
+
         }
 
 
@@ -69,7 +71,7 @@ namespace Data
             {
                 connection.Open();
 
-                using (SqlCommand command = new SqlCommand("crear_invoice", connection))
+                using (SqlCommand command = new SqlCommand("agregar_invoices", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
